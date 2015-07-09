@@ -24,9 +24,9 @@ public class Question56 {
     }
 
     private static BigDecimal Bigpower(int x, int y) {
-        BigDecimal sum = BigDecimal.ONE, a = new BigDecimal(x), b = new BigDecimal(y);
-        for (BigDecimal i = BigDecimal.ZERO; i.compareTo(b) == -1; i = i.add(BigDecimal.ONE)) {
-            sum = sum.multiply(a);
+        BigDecimal sum = BigDecimal.ONE, bigX = new BigDecimal(x);
+        for (int i = 0; i < y; i++) {
+            sum = sum.multiply(bigX);
         }
 
         return sum;

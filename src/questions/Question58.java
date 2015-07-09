@@ -35,11 +35,7 @@ public class Question58 {
         ResultHelper.printOut(result);
     }
 
-    public static int getNumberOfDiagonals(int length) {
-        return ((length - 1) / 2) * 4 + 1;
-    }
-
-    public static double getPercentage(List<Integer> newDiagonals) {
+    private static double getPercentage(List<Integer> newDiagonals) {
         diagonals.addAll(newDiagonals);
         primeDiagonals.addAll(newDiagonals.stream().filter(d -> isPrime(d)).collect(Collectors.toList()));
 
@@ -49,7 +45,7 @@ public class Question58 {
         return percentage;
     }
 
-    public static void fillPrimes() {
+    private static void fillPrimes() {
         // Due to this part, takes ~40 seconds to get the results.
         // Also had to use -Xmx4096m for VM not to have OutOfMemoryException
         Boolean[] primes = new Boolean[700000000];
@@ -65,7 +61,7 @@ public class Question58 {
         primeList = Arrays.asList(primes);
     }
 
-    public static boolean isPrime(int n) {
+    private static boolean isPrime(int n) {
         return primeList.get(n);
     }
 }

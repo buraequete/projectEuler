@@ -2,10 +2,14 @@ package projectEuler;
 
 import java.math.BigDecimal;
 
+import support.ResultHelper;
+import support.TimeHelper;
+
 public class Question56 {
     public static void main(String[] args) {
         int max = 0;
 
+        TimeHelper.start();
         for (int i = 1; i < 100; i++) {
             for (int j = 1; j < 100; j++) {
                 int now = getDigitSum(Bigpower(i, j));
@@ -15,7 +19,8 @@ public class Question56 {
             }
         }
 
-        System.out.println(max);
+        TimeHelper.stop();
+        ResultHelper.printOut(max);
     }
 
     private static BigDecimal Bigpower(int x, int y) {

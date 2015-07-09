@@ -1,4 +1,4 @@
-package support;
+package helper;
 
 public class TimeHelper {
     static long startTime;

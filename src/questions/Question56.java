@@ -1,9 +1,9 @@
-package projectEuler;
+package questions;
+
+import helper.ResultHelper;
+import helper.TimeHelper;
 
 import java.math.BigDecimal;
-
-import support.ResultHelper;
-import support.TimeHelper;
 
 public class Question56 {
     public static void main(String[] args) {

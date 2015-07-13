@@ -1,15 +1,10 @@
-package questions;
+package resource;
 
-import helper.ResultHelper;
-import helper.TimeHelper;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Question59 {
-    static List<Integer> encryptedText = Arrays.asList(79, 59, 12, 2, 79, 35, 8, 28, 20, 2, 3, 68, 8, 9, 68, 45, 0, 12, 9, 67, 68, 4, 7, 5, 23, 27, 1, 21, 79, 85,
+public class Resource59 {
+    protected static List<Integer> encryptedText = Arrays.asList(79, 59, 12, 2, 79, 35, 8, 28, 20, 2, 3, 68, 8, 9, 68, 45, 0, 12, 9, 67, 68, 4, 7, 5, 23, 27, 1, 21, 79, 85,
             78, 79, 85, 71, 38, 10, 71, 27, 12, 2, 79, 6, 2, 8, 13, 9, 1, 13, 9, 8, 68, 19, 7, 1, 71, 56, 11, 21, 11, 68, 6, 3, 22, 2, 14, 0, 30, 79, 1, 31,
             6, 23, 19, 10, 0, 73, 79, 44, 2, 79, 19, 6, 28, 68, 16, 6, 16, 15, 79, 35, 8, 11, 72, 71, 14, 10, 3, 79, 12, 2, 79, 19, 6, 28, 68, 32, 0, 0, 73,
             79, 86, 71, 39, 1, 71, 24, 5, 20, 79, 13, 9, 79, 16, 15, 10, 68, 5, 10, 3, 14, 1, 10, 14, 1, 3, 71, 24, 13, 19, 7, 68, 32, 0, 0, 73, 79, 87, 71,
@@ -39,33 +34,4 @@ public class Question59 {
             71, 14, 9, 8, 1, 3, 71, 26, 23, 73, 79, 44, 2, 79, 19, 6, 28, 68, 1, 26, 8, 11, 79, 11, 1, 79, 17, 9, 9, 5, 14, 3, 13, 9, 8, 68, 11, 0, 18, 2, 79, 5,
             9, 11, 68, 1, 14, 13, 19, 7, 2, 18, 3, 10, 2, 28, 23, 73, 79, 37, 9, 11, 68, 16, 10, 68, 15, 14, 18, 2, 79, 23, 2, 10, 10, 71, 7, 13, 20, 79, 3, 11, 0,
             22, 30, 67, 68, 19, 7, 1, 71, 8, 8, 8, 29, 29, 71, 0, 2, 71, 27, 12, 2, 79, 11, 9, 3, 29, 71, 60, 11, 9, 79, 11, 1, 79, 16, 15, 10, 68, 33, 14, 16, 15, 10, 22, 73);
-
-    public static void main(String[] args) {
-        TimeHelper.start();
-        int i, j, k, l;
-        bigloop: for (i = 97; i < 123; i++) {
-            for (j = 97; j < 123; j++) {
-                for (k = 97; k < 123; k++) {
-                    List<Integer> decryptedText = new ArrayList<>();
-                    for (l = 0; l < encryptedText.size(); l += 3) {
-                        Integer x = encryptedText.get(l) ^ i;
-                        if (l == 1200) {
-                            decryptedText.add(x);
-                        } else {
-                            Integer y = encryptedText.get(l + 1) ^ j, z = encryptedText.get(l + 2) ^ k;
-                            decryptedText.addAll(Arrays.asList(x, y, z));
-                        }
-                    }
-                    String text = decryptedText.stream()
-                            .map(c -> "" + Character.toChars(c)[0])
-                            .collect(Collectors.joining());
-                    if (text.contains("the") && text.contains("be") && text.contains("to") && text.contains("of") && text.contains("and")) {
-                        ResultHelper.printOut(decryptedText.stream().reduce((a, b) -> a + b).get() + " -- " + text);
-                        break bigloop;
-                    }
-                }
-            }
-        }
-        TimeHelper.stop();
-    }
 }

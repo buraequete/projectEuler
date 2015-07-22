@@ -30,24 +30,22 @@ public class Question64 {
 
     static boolean isCycleSizeOdd(int d) {
         List<Integer> fractions = new ArrayList<>();
-        List<BigDecimal> realFractions = new ArrayList<>();
+        BigDecimal realFraction = bigSqrt(BigDecimal.valueOf(d), new BigDecimal(1),
+                new BigDecimal(1).divide(new BigDecimal(10).pow(170)));
         fractions.add(floor(Math.sqrt(d)));
-        realFractions.add(bigSqrt(BigDecimal.valueOf(d), new BigDecimal(1),
-                new BigDecimal(1).divide(new BigDecimal(10).pow(200))));
         while (true) {
-            int size = realFractions.size(), i = size - 1;
-            if (fractions.get(0).compareTo(fractions.get(i) / 2) == 0) {
+            int size = fractions.size(), i = size - 1;
+            int firstNum = fractions.get(0), lastNum = fractions.get(i);
+            if (lastNum > firstNum && firstNum * 2 == lastNum) {
                 return fractions.size() % 2 == 0;
             }
-            BigDecimal realFraction = getNextFraction(realFractions.get(i), fractions.get(i));
-            Integer fraction = realFraction.intValue();
-            realFractions.add(realFraction);
-            fractions.add(fraction);
+            realFraction = getNextFraction(realFraction, fractions.get(i));
+            fractions.add(realFraction.intValue());
         }
     }
 
     static BigDecimal getNextFraction(BigDecimal rf, Integer f) {
-        return BigDecimal.valueOf(1).divide(rf.subtract(new BigDecimal(f)), 500,
+        return BigDecimal.valueOf(1).divide(rf.subtract(new BigDecimal(f)), 350,
                 RoundingMode.HALF_EVEN);
     }
 
@@ -63,7 +61,7 @@ public class Question64 {
     private static BigDecimal bigSqrt(BigDecimal c, BigDecimal xn, BigDecimal precision) {
         BigDecimal fx = xn.pow(2).add(c.negate());
         BigDecimal fpx = xn.multiply(new BigDecimal(2));
-        BigDecimal xn1 = fx.divide(fpx, 250, RoundingMode.HALF_DOWN);
+        BigDecimal xn1 = fx.divide(fpx, 230, RoundingMode.HALF_DOWN);
         xn1 = xn.add(xn1.negate());
 
         BigDecimal currentSquare = xn1.pow(2);

@@ -12,6 +12,6 @@ All done up to Q54, but there is no evidence for those :(
 * Q61 X
 * Q62 ✓
 * Q63 ✓
-* Q64 X
+* Q64 ✓
 * Q65 X
 * Q66 ✓

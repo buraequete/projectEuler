@@ -14,5 +14,6 @@ All solutions up to Q54 are lost.
 * Q62 ✓
 * Q63 ✓
 * Q64 ✓
-* Q65 X
+* Q65 ✓
 * Q66 ✓
+* Q67 ✓

@@ -1,7 +1,7 @@
 # projectEuler
-My repo to house solutions for [Project Euler](https://projecteuler.net/) questions.
+My repo to house solutions for [Project Euler](https://projecteuler.net/)questions.
 
-All solutions up to Q54 are lost.
+All the solutions up to Q54 are lost.
 
 * Q54 ✓
 * Q55 ✓

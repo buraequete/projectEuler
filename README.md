@@ -10,7 +10,7 @@ All the solutions up to Q54 are lost.
 * Q58 ✓
 * Q59 ✓
 * Q60 ✓
-* Q61 X
+* Q61 ✓
 * Q62 ✓
 * Q63 ✓
 * Q64 ✓

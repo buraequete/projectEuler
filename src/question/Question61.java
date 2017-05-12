@@ -1,92 +1,79 @@
 package question;
 
+import helper.ResultHelper;
+import helper.TimeHelper;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import helper.PrimeHelper;
-import helper.ResultHelper;
-import helper.TimeHelper;
+public class Question61 {
+	static Map<Integer, List<String>> polygonalityMap = new HashMap<>();
 
-public class Question61 extends PrimeHelper {
-  static Map<Integer, Map<Integer, Integer>> polygonalityMap = new HashMap<>();
-  static List<Integer> fourDigits =
-      IntStream.rangeClosed(1000, 9999).boxed().collect(Collectors.toList());
+	public static void main(String[] args) {
+		TimeHelper.start();
+		int result = -1;
+		fillLists();
+		for (String i3 : polygonalityMap.get(3)) {
+			for (String i4 : polygonalityMap.get(4)) {
+				for (String i5 : polygonalityMap.get(5)) {
+					for (String i6 : polygonalityMap.get(6)) {
+						if (checkCircularity(Arrays.asList(i3, i4, i5, i6), 1)) {
+							for (String i7 : polygonalityMap.get(7)) {
+								if (checkCircularity(Arrays.asList(i3, i4, i5, i6, i7), 2)) {
+									for (String i8 : polygonalityMap.get(8)) {
+										List<String> temp = Arrays.asList(i3, i4, i5, i6, i7, i8);
+										if (checkCircularity(temp, 6)) {
+											result = temp.stream().map(Integer::parseInt).mapToInt(i -> i.intValue()).sum();
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		ResultHelper.printOut("Result is " + result);
+		TimeHelper.stop();
+	}
 
-  public static void main(String[] args) {
-    TimeHelper.start();
-    fillLists();
-    for (int i : fourDigits) {
-      for (int j : fourDigits) {
-        if (i == j) {
-          continue;
-        }
-        for (int k : fourDigits) {
-          if (i == k && j == k) {
-            continue;
-          }
-          for (int l : fourDigits) {
-            if (i == l && j == l && k == l) {
-              continue;
-            }
-            for (int m : fourDigits) {
-              if (i == m && j == m && k == m && l == m) {
-                continue;
-              }
-              for (int n : fourDigits) {
-                if (i == n && j == n && k == n && l == n && m == n) {
-                  continue;
-                }
-                if (isCircular(i, j, k, l, m, n)) {
-                  System.out.println(i + " " + j + " " + k + " " + l + " " + m + " " + n);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    ResultHelper.printOut("");
-    TimeHelper.stop();
-  }
+	static boolean checkCircularity(List<String> strings, int level) {
+		int sum = 0;
+		for (int i = 0; i < strings.size(); i++) {
+			String current = strings.get(i);
+			String first = current.substring(0, 2);
+			String last = current.substring(2, 4);
+			if (strings.stream().filter(s -> s.matches(last + "\\d{2}") && !s.equals(current)).count() > 0) {
+				if (strings.stream().filter(s -> s.matches("\\d{2}" + first) && !s.equals(current)).count() > 0) {
+					if (first == last || strings.stream().filter(s -> s.matches(last + first)).count() == 0) {
+						sum++;
+					}
+				}
+			}
+		}
+		return sum >= level ? true : false;
+	}
 
-  // private static boolean comparePolygonality(int i, int j) {
-  // Set<Integer> keyset_i = polygonalityMap.get(i).keySet();
-  // Set<Integer> keyset_j = polygonalityMap.get(j).keySet();
-  // if () {
-  //
-  // }
-  // }
+	static void fillLists() {
+		for (int i = 15; i < 200; i++) {
+			insertIntoMap(3, i * (i + 1) / 2);
+			insertIntoMap(4, i * i);
+			insertIntoMap(5, i * (3 * i - 1) / 2);
+			insertIntoMap(6, i * (2 * i - 1));
+			insertIntoMap(7, i * (5 * i - 3) / 2);
+			insertIntoMap(8, i * (3 * i - 2));
+		}
+	}
 
-  private static boolean isCircular(int a, int b, int c, int d, int e, int f) {
-    return checkParts(a, b) && checkParts(b, c) && checkParts(c, d) && checkParts(d, e)
-        && checkParts(e, f) && checkParts(f, a);
-  }
-
-  private static boolean checkParts(int i, int j) {
-    return ((int) j / 100) == (i % 100);
-  }
-
-  private static void fillLists() {
-    for (int i = 1; i < 200; i++) {
-      insertIntoMap(i * (i + 1) / 2, 3, i);
-      insertIntoMap(i * i, 4, i);
-      insertIntoMap(i * (3 * i - 1) / 2, 5, i);
-      insertIntoMap(i * (2 * i - 1), 6, i);
-      insertIntoMap(i * (5 * i - 3) / 2, 7, i);
-      insertIntoMap(i * (3 * i - 2), 8, i);
-    }
-  }
-
-  private static void insertIntoMap(int v, int p, int n) {
-    if (polygonalityMap.containsKey(v)) {
-      polygonalityMap.get(v).put(p, n);
-    } else {
-      Map<Integer, Integer> tempMap = new HashMap<>();
-      tempMap.put(p, n);
-      polygonalityMap.put(v, tempMap);
-    }
-  }
+	static void insertIntoMap(int poly, int val) {
+		String valStr = val + "";
+		if (valStr.matches("\\d{2}[^0]\\d") && !valStr.matches("\\d{2}00")) {
+			if (!polygonalityMap.containsKey(poly)) {
+				polygonalityMap.put(poly, new ArrayList<>());
+			}
+			polygonalityMap.get(poly).add(valStr);
+		}
+	}
 }

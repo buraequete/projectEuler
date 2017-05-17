@@ -1,7 +1,7 @@
 # projectEuler
 My repo to house solutions for [Project Euler](https://projecteuler.net/)questions.
 
-All the solutions up to Q54 are lost.
+Solution for Q67 and all the solutions up to Q54 are lost.
 
 * Q54 ✓
 * Q55 ✓
@@ -17,3 +17,4 @@ All the solutions up to Q54 are lost.
 * Q65 ✓
 * Q66 ✓
 * Q67 ✓
+* Q68 ✓

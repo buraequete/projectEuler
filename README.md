@@ -20,4 +20,7 @@ Solution for Q67 and all the solutions up to Q54 are lost.
 * Q68 ✓
 * Q69 ✓
 * Q70 ✓
-* Q71 X
+* Q71 ✓
+* Q72 ✓
+* Q73 ✓
+* Q74 X

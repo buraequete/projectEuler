@@ -2,26 +2,35 @@ package question;
 
 import helper.ResultHelper;
 import helper.TimeHelper;
-import java.util.HashMap;
-import java.util.Map;
 
-public class Question76 {
-	static int result, target = 100;
-	static Map<Integer, Integer> pentMap = new HashMap<>();
+public class Question78 {
+	static int result, target = (int) 1e6;
+	static int[] pentArr = new int[target];
 
 	public static void main(String[] args) {
 		TimeHelper.start();
-		pentMap.put(0, 1);
-		result = pentagonize(target) - 1;
+		go();
 		ResultHelper.printOut("Result is " + result);
 		TimeHelper.stop();
 	}
 
-	static int pentagonize(int n) {
-		int gk = 0, sum = 0, localSum;
-		if (pentMap.containsKey(n)) {
-			return pentMap.get(n);
+	static void go() {
+		pentArr[0] = 1;
+		for (int i = 1; true; i++) {
+			if (pentagonize(i) == 0) {
+				result = i;
+				break;
+			}
 		}
+	}
+
+	static int pentagonize(int n) {
+		if (n < 0) {
+			return 0;
+		} else if (pentArr[n] != 0) {
+			return pentArr[n];
+		}
+		int gk = 0, sum = 0, localSum;
 		for (int k = 1; gk <= n; k++) {
 			gk = miniFnc(k);
 			localSum = pentagonize(n - gk) + pentagonize(n - gk - k);
@@ -31,7 +40,8 @@ public class Question76 {
 				sum += localSum;
 			}
 		}
-		pentMap.put(n, sum);
+		sum %= target;
+		pentArr[n] = sum;
 		return sum;
 	}
 

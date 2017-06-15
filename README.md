@@ -29,4 +29,5 @@ Solution for Q67 and all the solutions up to Q54 are lost.
 * Q77 ✓
 * Q78 ✓
 * Q79 ✓
-* Q80 X
+* Q80 ✓
+* Q81 X

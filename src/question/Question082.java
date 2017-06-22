@@ -5,12 +5,12 @@ import helper.TimeHelper;
 import java.io.File;
 import java.util.Scanner;
 
-public class Question081 {
-	static int result, size = 80, border = size - 1, matrix[][];
+public class Question082 {
+	static int result = Integer.MAX_VALUE, size = 80, border = size - 1, matrix[][];
 
 	public static void main(String[] args) {
 		TimeHelper.start();
-		matrix = new Question081().parseFile();
+		matrix = new Question082().parseFile();
 		go();
 		ResultHelper.printOut("Result is " + result);
 		TimeHelper.stop();
@@ -18,7 +18,7 @@ public class Question081 {
 
 	int[][] parseFile() {
 		int matrix[][] = new int[size][size], i = 0, j;
-		File file = new File(getClass().getClassLoader().getResource("p081_matrix.txt").getFile());
+		File file = new File(getClass().getClassLoader().getResource("p082_matrix.txt").getFile());
 		try (Scanner scanner = new Scanner(file)) {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
@@ -36,12 +36,15 @@ public class Question081 {
 	}
 
 	static void go() {
-		for (int i = border; i >= 0; i--) {
-			for (int j = border; j >= 0; j--) {
-				matrix[i][j] += Math.min(getMatrixValue(i, j + 1), getMatrixValue(i + 1, j));
+		for (int k = 0; k < size; k++) {
+			for (int i = border; i >= 0; i--) {
+				int ik = (i - k) % size;
+				for (int j = border; j >= 0; j--) {
+					matrix[ik][j] += Math.min(Math.min(getMatrixValue(ik, j + 1), getMatrixValue(i + 1, j)), getMatrixValue(i - 1, j));
+				}
 			}
+			result = Math.min(result, getMinFirstColumn());
 		}
-		result = matrix[0][0] - Integer.MAX_VALUE;
 	}
 
 	static int getMatrixValue(int i, int j) {
@@ -50,5 +53,13 @@ public class Question081 {
 		} catch (Exception e) {
 			return Integer.MAX_VALUE;
 		}
+	}
+
+	static int getMinFirstColumn() {
+		int result = Integer.MAX_VALUE;
+		for (int i = 0; i < size; i++) {
+			result = Math.min(result, matrix[i][0]);
+		}
+		return result;
 	}
 }
